@@ -68,8 +68,8 @@ The **Rust** toolchain includes:
 
 To create and modify the [**Visual Studio Code**](https://code.visualstudio.com/) [launch configurations](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations) file, navigate to *Run* -> *Open Configurations*.
 
-The following defines a two-step debugging process (corresponding to the command line method above) for applications and tests that will:
-1. Compile using the `cargo` tool
+The following defines a two-step debugging process (which corresponds to the command line technique described above) for applications and tests that will:
+1. Compile using the `cargo` tool (defined by the `cargo` tag), and
 2. Debug the compiled executable using information extracted (automatically) from the output of the `cargo` tool
 
 ```
@@ -87,10 +87,10 @@ The following defines a two-step debugging process (corresponding to the command
                     "build",
                 ],
             },
-            // Arguments for the application
+            // Arguments when debugging the application
             "args": [],
-            // Environment variables for the application
-            // e.g. "RUST_LOG": "trace"
+            // Environment variables when debugging the application
+            // e.g. "RUST_LOG": "trace", etc...
             "env": {},
             "cwd": "${workspaceRoot}",
         },
@@ -106,11 +106,11 @@ The following defines a two-step debugging process (corresponding to the command
                     "--no-run",
                 ],
             },
-            // Arguments for the application
-            // e.g. "--nocapture", or a filter to run specific tests
+            // Arguments when debugging the tests
+            // e.g. "--nocapture", a filter to run specific tests, etc...
             "args": [],
-            // Environment variables for the application
-            // e.g. "RUST_LOG": "trace"
+            // Environment variables when debugginbg the tests
+            // e.g. "RUST_LOG": "trace", etc...
             "env": {},
             "cwd": "${workspaceRoot}",
         },
@@ -118,7 +118,7 @@ The following defines a two-step debugging process (corresponding to the command
 }
 ```
 
-Note that inline comments are allowed within the **json** formatted launch configuration file.
+Note that inline comments are allowed within the **json** formatted launch configuration file in **Visual Studio Code**.
 
 ### References
 
