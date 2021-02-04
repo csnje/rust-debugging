@@ -109,7 +109,7 @@ The following defines a two-step debugging process (which corresponds to the com
             // Arguments when debugging the tests
             // e.g. "--nocapture", a filter to run specific tests, etc...
             "args": [],
-            // Environment variables when debugginbg the tests
+            // Environment variables when debugging the tests
             // e.g. "RUST_LOG": "trace", etc...
             "env": {},
             "cwd": "${workspaceRoot}",
