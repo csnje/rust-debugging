@@ -12,39 +12,39 @@ The **Rust** toolchain includes:
 
 1. Compile using the `cargo` tool, with the `--message-format=json` option to output information including the executable path
 
-    `bash
+    ```bash
     # Compile application
     cargo build --message-format=json
     # Compile tests
     cargo test --no-run --message-format=json
-    `
+    ```
 
     The executable path is typically found beside the `executable` tag in the final line of the output.
 
     See `cargo` tool help for additional compile options:
-    `bash
+    ```bash
     cargo build -h
     cargo help build
     cargo test -h
     cargo help test
-    `
+    ```
 
 2. Debug the compiled executable using the appropriate debugging tool
 
-    `bash
+    ```bash
     # Debug with LLDB
     rust-lldb -f path/to/executable
     # Debug with GDB
     rust-gdb path/to/executable
-    `
+    ```
 
     See debugging tool help for additional options (e.g. passing arguments, using core files, attaching to processes, etc...):
-    `bash
+    ```bash
     # Help for LLDB
     rust-lldb -h
     # Help for GDB
     rust-gdb -h
-    `
+    ```
 
 ---
 
@@ -63,7 +63,7 @@ The following configurations defines a two-step debugging process (corresponding
 1. Compile using the `cargo` tool
 2. Debug the compiled executable (determined from the output of the `cargo` tool)
 
-`
+```
 {
     "version": "0.2.0",
     "configurations": [
@@ -107,7 +107,7 @@ The following configurations defines a two-step debugging process (corresponding
         },
     ]
 }
-`
+```
 
 ### References
 
