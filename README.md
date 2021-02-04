@@ -6,9 +6,13 @@ A collection of notes for debugging [**Rust**](https://www.rust-lang.org/) appli
 
 ## Command Line with Rust Toolchain
 
+### Tools
+
 The **Rust** toolchain includes:
 - `rust-lldb` for debugging with [**LLDB**](https://lldb.llvm.org/)
 - `rust-gdb` for debugging with [**GDB**](https://www.gnu.org/software/gdb/)
+
+### Process
 
 1. Compile using the `cargo` tool, with the `--message-format=json` option to output information including the executable path
 
@@ -33,7 +37,7 @@ The **Rust** toolchain includes:
 
     ```bash
     # Debug with LLDB
-    rust-lldb -f path/to/executable
+    rust-lldb path/to/executable
     # Debug with GDB
     rust-gdb path/to/executable
     ```
@@ -46,6 +50,11 @@ The **Rust** toolchain includes:
     rust-gdb -h
     ```
 
+### References
+
+- [Comment on rust-lang/cargo issue #8525, "\`cargo test --no-run\` doesn't appear to produce a binary"](https://github.com/rust-lang/cargo/issues/8525#issuecomment-662116135)
+- ["Debugging Rust with rust-lldb"](https://dev.to/bmatcuk/debugging-rust-with-rust-lldb-j1f)
+
 ---
 
 ## Visual Studio Code
@@ -55,13 +64,13 @@ The **Rust** toolchain includes:
 - [**Rust** (rust-lang.rust)](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust) for development with **Rust**
 - [**CodeLLDB** (vadimcn.vscode-lldb)](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) for debugging with **LLDB**
 
-### Configuration
+### Launch Configurations
 
-To setup debugging configurations in **Visual Studio Code**, navigate to *Run* -> *Open Configurations*.
+To create and modify [**Visual Studio Code**](https://code.visualstudio.com/) [launch configurations](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations), navigate to *Run* -> *Open Configurations*.
 
-The following configurations defines a two-step debugging process (corresponding to the command line method above):
+The following launch configurations defines a two-step debugging process (corresponding to the command line method above) that will:
 1. Compile using the `cargo` tool
-2. Debug the compiled executable (determined from the output of the `cargo` tool)
+2. Debug the compiled executable (using information extracted automatically from the output of the `cargo` tool)
 
 ```
 {
@@ -109,9 +118,10 @@ The following configurations defines a two-step debugging process (corresponding
 }
 ```
 
+Note inline comments are allowed within the **json** formatted launch configuration file.
+
 ### References
 
-- [Visual Studio Code Documentation - Debugging](https://code.visualstudio.com/docs/editor/debugging)
 - [Comment on rust-lang/cargo issue #6821, "How to debug Cargo tests (with CLI or IDE)"](https://github.com/rust-lang/cargo/issues/6821#issuecomment-479983260)
 - [Answer on Stack Overflow, "Step by step interactive debugger for Rust?"](https://stackoverflow.com/a/52273254)
-- [Forrest Smith, "How to Debug Rust with Visual Studio Code"](https://forrestthewoods.com/blog/how-to-debug-rust-with-visual-studio-code/)
+- ["How to Debug Rust with Visual Studio Code"](https://forrestthewoods.com/blog/how-to-debug-rust-with-visual-studio-code/)
