@@ -4,7 +4,7 @@ A collection of notes for debugging [**Rust**](https://www.rust-lang.org/) appli
 
 ---
 
-## Command Line with Rust Toolchain
+## Using the Rust Toolchain on the Command Line
 
 ### Tools
 
@@ -14,7 +14,7 @@ The **Rust** toolchain includes:
 
 ### Process
 
-1. Compile using the `cargo` tool, with the `--message-format=json` option to output information including the executable path
+1. Compile using the `cargo` tool, setting the `--message-format=json` option to output information that includes the path of the compiled executable:
 
     ```bash
     # Compile application
@@ -23,9 +23,9 @@ The **Rust** toolchain includes:
     cargo test --no-run --message-format=json
     ```
 
-    The executable path is typically found beside the `executable` tag in the final line of the output.
+    The path of the compiled executable is typically found beside the `executable` tag in the final line of the output.
 
-    See `cargo` tool help for additional compile options:
+    Refer to the `cargo` tool help for additional compile options:
     ```bash
     cargo build -h
     cargo help build
@@ -33,7 +33,7 @@ The **Rust** toolchain includes:
     cargo help test
     ```
 
-2. Debug the compiled executable using the appropriate debugging tool
+2. Debug the compiled executable using the preferred debugging tool:
 
     ```bash
     # Debug with LLDB
@@ -42,7 +42,7 @@ The **Rust** toolchain includes:
     rust-gdb path/to/executable
     ```
 
-    See debugging tool help for additional options (e.g. passing arguments, using core files, attaching to processes, etc...):
+    Refer to the debugging tool help for additional options (e.g. passing arguments, using core files, attaching to processes, etc...):
     ```bash
     # Help for LLDB
     rust-lldb -h
@@ -57,7 +57,7 @@ The **Rust** toolchain includes:
 
 ---
 
-## Visual Studio Code
+## Using Visual Studio Code
 
 ### Extensions
 
@@ -66,11 +66,11 @@ The **Rust** toolchain includes:
 
 ### Launch Configurations
 
-To create and modify [**Visual Studio Code**](https://code.visualstudio.com/) [launch configurations](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations), navigate to *Run* -> *Open Configurations*.
+To create and modify the [**Visual Studio Code**](https://code.visualstudio.com/) [launch configurations](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations) file, navigate to *Run* -> *Open Configurations*.
 
-The following launch configurations defines a two-step debugging process (corresponding to the command line method above) that will:
+The following defines a two-step debugging process (corresponding to the command line method above) for applications and tests that will:
 1. Compile using the `cargo` tool
-2. Debug the compiled executable (using information extracted automatically from the output of the `cargo` tool)
+2. Debug the compiled executable using information extracted (automatically) from the output of the `cargo` tool
 
 ```
 {
@@ -118,7 +118,7 @@ The following launch configurations defines a two-step debugging process (corres
 }
 ```
 
-Note inline comments are allowed within the **json** formatted launch configuration file.
+Note that inline comments are allowed within the **json** formatted launch configuration file.
 
 ### References
 
