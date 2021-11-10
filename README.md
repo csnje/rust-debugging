@@ -14,24 +14,16 @@ The **Rust** toolchain includes:
 
 ### Process
 
-1. Compile using the `cargo` tool, setting the `--message-format=json` option to output information that includes the path of the compiled executable:
+1. Build with `cargo` using the option `--message-format json` to output messages that include the path of the compiled executable:
 
     ```bash
-    # Compile application
-    cargo build --message-format=json
-    # Compile tests
-    cargo test --no-run --message-format=json
+    # Build application
+    cargo build --message-format json
+    # Build tests
+    cargo test --message-format json --no-run
     ```
 
-    The path of the compiled executable is typically found beside the `executable` tag in the final line of the output.
-
-    Refer to the `cargo` tool help for additional compile options:
-    ```bash
-    cargo build -h
-    cargo help build
-    cargo test -h
-    cargo help test
-    ```
+    The path of the executable is given by the value associated with the `executable` tag in the output.
 
 2. Debug the compiled executable using the preferred debugging tool:
 
@@ -42,18 +34,7 @@ The **Rust** toolchain includes:
     rust-gdb path/to/executable
     ```
 
-    Refer to the debugging tool help for additional options (e.g. passing arguments, using core files, attaching to processes, etc...):
-    ```bash
-    # Help for LLDB
-    rust-lldb -h
-    # Help for GDB
-    rust-gdb -h
-    ```
-
-### References
-
-- [Comment on rust-lang/cargo issue #8525, "\`cargo test --no-run\` doesn't appear to produce a binary"](https://github.com/rust-lang/cargo/issues/8525#issuecomment-662116135)
-- ["Debugging Rust with rust-lldb"](https://dev.to/bmatcuk/debugging-rust-with-rust-lldb-j1f)
+    Refer to the debugging tool help option `-h` for additional usage, including how to provide arguments to the executable being debugged.
 
 ---
 
@@ -61,14 +42,16 @@ The **Rust** toolchain includes:
 
 ### Extensions
 
+The following extensions are used here:
+
 - [**Rust** (rust-lang.rust)](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust) for development with **Rust**
 - [**CodeLLDB** (vadimcn.vscode-lldb)](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) for debugging with **LLDB**
 
 ### Launch Configurations
 
-To create and modify the [**Visual Studio Code**](https://code.visualstudio.com/) [launch configurations](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations) file, navigate to *Run* -> *Open Configurations*.
+To create and modify the [**Visual Studio Code**](https://code.visualstudio.com/) [launch configurations](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations) file, navigate to *Run* -> *Open Configurations* (or *Run* -> *Add Configuration...* on first use).
 
-The following defines a two-step debugging process (which corresponds to the command line technique described above) for applications and tests that will:
+The following defines a two-step debugging process corresponding to the command line technique described above that will:
 1. Compile using the `cargo` tool (defined by the `cargo` tag), and
 2. Debug the compiled executable using information extracted (automatically) from the output of the `cargo` tool
 
@@ -86,11 +69,16 @@ The following defines a two-step debugging process (which corresponds to the com
                 "args": [
                     "build",
                 ],
+                // A filter discriminates the application in a workspace (if needed)
+                //"filter": {
+                //    "name": "myapp",
+                //    "kind": "bin",
+                //},
             },
-            // Arguments when debugging the application
+            // Arguments for the application
             "args": [],
-            // Environment variables when debugging the application
-            // e.g. "RUST_LOG": "trace", etc...
+            // Environment variables for the application
+            // e.g. { "RUST_LOG": "trace", etc... }
             "env": {},
             "cwd": "${workspaceRoot}",
         },
@@ -105,12 +93,17 @@ The following defines a two-step debugging process (which corresponds to the com
                     "test",
                     "--no-run",
                 ],
+                // A filter discriminates the application/library in a workspace (if needed)
+                //"filter": {
+                //    "name": "mylib",
+                //    "kind": "lib",
+                //},
             },
-            // Arguments when debugging the tests
-            // e.g. "--nocapture", a filter to run specific tests, etc...
+            // Arguments for the tests
+            // e.g. [ "--nocapture", "testfilter", etc...]
             "args": [],
-            // Environment variables when debugging the tests
-            // e.g. "RUST_LOG": "trace", etc...
+            // Environment variables for the tests
+            // e.g. { "RUST_LOG": "trace", etc... }
             "env": {},
             "cwd": "${workspaceRoot}",
         },
@@ -120,8 +113,12 @@ The following defines a two-step debugging process (which corresponds to the com
 
 Note that inline comments are allowed within the **json** formatted launch configuration file in **Visual Studio Code**.
 
-### References
+---
+
+## References
 
 - [Comment on rust-lang/cargo issue #6821, "How to debug Cargo tests (with CLI or IDE)"](https://github.com/rust-lang/cargo/issues/6821#issuecomment-479983260)
-- [Answer on Stack Overflow, "Step by step interactive debugger for Rust?"](https://stackoverflow.com/a/52273254)
+- [Comment on rust-lang/cargo issue #8525, "\`cargo test --no-run\` doesn't appear to produce a binary"](https://github.com/rust-lang/cargo/issues/8525#issuecomment-662116135)
+- ["Debugging Rust with rust-lldb"](https://dev.to/bmatcuk/debugging-rust-with-rust-lldb-j1f)
 - ["How to Debug Rust with Visual Studio Code"](https://forrestthewoods.com/blog/how-to-debug-rust-with-visual-studio-code/)
+- [Answer on Stack Overflow, "Step by step interactive debugger for Rust?"](https://stackoverflow.com/a/52273254)
