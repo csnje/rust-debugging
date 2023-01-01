@@ -4,7 +4,7 @@ A collection of notes for debugging [**Rust**](https://www.rust-lang.org/) appli
 
 ---
 
-## Using the Rust Toolchain on the Command Line
+## With the Rust toolchain (on the command line)
 
 ### Tools
 
@@ -14,48 +14,49 @@ The **Rust** toolchain includes:
 
 ### Process
 
-1. Build with `cargo` using the option `--message-format json` to output messages that include the path of the compiled executable:
+1. Build the executable using the `cargo build` option `--message-format json`:
 
-    ```bash
-    # Build application
-    cargo build --message-format json
-    # Build tests
-    cargo test --message-format json --no-run
-    ```
+   ```bash
+   # build application
+   cargo build --message-format json
+   # or build tests
+   cargo test --message-format json --no-run
+   ```
+    
+   The full path of the built executable appears in the `"executable"` value of the output.
+   The executable will typically be in the project's `target/debug` folder but may be elsewhere, depending on the configuration.
 
-    The path of the executable is given by the value associated with the `executable` tag in the output.
+2. Debug the executable using the preferred tool:
 
-2. Debug the compiled executable using the preferred debugging tool:
+   ```bash
+   # LLDB
+   rust-lldb path/to/executable
+   # or GDB
+   rust-gdb path/to/executable
+   ```
 
-    ```bash
-    # Debug with LLDB
-    rust-lldb path/to/executable
-    # Debug with GDB
-    rust-gdb path/to/executable
-    ```
-
-    Refer to the debugging tool help option `-h` for additional usage, including how to provide arguments to the executable being debugged.
+   Refer to the debugging tool help option `-h` for additional usage, including how to provide arguments to the executable.
 
 ---
 
-## Using Visual Studio Code
+## With Visual Studio Code
 
 ### Extensions
 
-The following extensions are used here:
+The following [**Visual Studio Code**](https://code.visualstudio.com/) extensions are used here:
 
-- [**Rust** (rust-lang.rust)](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust) for development with **Rust**
+- [**rust-analyzer** (rust-lang.rust-analyzer)](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) for development with **Rust** *(supersedes deprecated ~~[**Rust** (rust-lang.rust)](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust)~~)*
 - [**CodeLLDB** (vadimcn.vscode-lldb)](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) for debugging with **LLDB**
 
 ### Launch Configurations
 
-To create and modify the [**Visual Studio Code**](https://code.visualstudio.com/) [launch configurations](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations) file, navigate to *Run* -> *Open Configurations* (or *Run* -> *Add Configuration...* on first use).
+Define [launch configurations](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations) to build and run or debug an application or tests in the file `.vscode/launch.json`.
 
-The following defines a two-step debugging process corresponding to the command line technique described above that will:
-1. Compile using the `cargo` tool (defined by the `cargo` tag), and
-2. Debug the compiled executable using information extracted (automatically) from the output of the `cargo` tool
+Create launch configurations for debugging by selecting *Run* → *Add configuration...* → *LLDB*.
 
-```
+The following example will build and debug an application or tests:
+
+```text
 {
     "version": "0.2.0",
     "configurations": [
@@ -111,14 +112,6 @@ The following defines a two-step debugging process corresponding to the command 
 }
 ```
 
-Note that inline comments are allowed within the **json** formatted launch configuration file in **Visual Studio Code**.
+Here the path of the executable is (automatically) extracted from the build step output of the `cargo` tool.
 
----
-
-## References
-
-- [Comment on rust-lang/cargo issue #6821, "How to debug Cargo tests (with CLI or IDE)"](https://github.com/rust-lang/cargo/issues/6821#issuecomment-479983260)
-- [Comment on rust-lang/cargo issue #8525, "\`cargo test --no-run\` doesn't appear to produce a binary"](https://github.com/rust-lang/cargo/issues/8525#issuecomment-662116135)
-- ["Debugging Rust with rust-lldb"](https://dev.to/bmatcuk/debugging-rust-with-rust-lldb-j1f)
-- ["How to Debug Rust with Visual Studio Code"](https://forrestthewoods.com/blog/how-to-debug-rust-with-visual-studio-code/)
-- [Answer on Stack Overflow, "Step by step interactive debugger for Rust?"](https://stackoverflow.com/a/52273254)
+Note that inline comments are allowed within the **JSON** formatted launch configurations.
